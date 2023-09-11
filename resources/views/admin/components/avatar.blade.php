@@ -12,8 +12,8 @@ $iniciais = str_split($firstName)[0].str_split($lastName)[0];
     <span class="font-medium text-gray-600 dark:text-gray-300">{{$iniciais}}</span>
   </div>
   @endif
-  <div class="font-medium dark:text-white">
+  <div class="font-medium text-white">
     <div>{{auth()->user()->name}}</div>
-    <div class="text-sm text-gray-500 dark:text-gray-400">{{auth()->user()->email}}</div>
+    <div class="text-sm text-gray-400 dark:text-gray-400">{{auth()->user()->email}}</div>
   </div>
 </div>

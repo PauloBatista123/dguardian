@@ -26,7 +26,11 @@ class User extends Authenticatable
         'last_login',
         'ip_login',
         'description',
-        'isAdmin'
+        'isAdmin',
+        'status',
+        'foto',
+        'email_address',
+        'cpf'
     ];
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckStatusForUser;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Laravel\Passport\Http\Middleware\CheckClientCredentials;
 
@@ -68,5 +69,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'client' => CheckClientCredentials::class,
+        'status' => CheckStatusForUser::class
     ];
 }

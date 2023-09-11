@@ -9,12 +9,16 @@
         "directorytree/ldaprecord": "^3.1",
         "directorytree/ldaprecord-laravel": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
+        "imtigger/laravel-job-status": "^1.2",
+        "jantinnerezo/livewire-alert": "^3.0",
         "laravel/framework": "^10.10",
         "laravel/passport": "^11.8",
         "laravel/sanctum": "^3.2",
         "laravel/socialite": "^5.8",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.2",
+        "livewire/livewire": "^3.0",
+        "maatwebsite/excel": "^3.1",
         "socialiteproviders/microsoft": "^4.2"
     },
     "require-dev": {
