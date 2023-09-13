@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Process;
 
 class Deploy extends Command
 {
@@ -26,8 +27,8 @@ class Deploy extends Command
      */
     public function handle()
     {
-        $retorno = shell_exec("php -v");
+        $retorno = Process::run("php -oiu");
 
-        $this->output->write($retorno);
+        echo $retorno->errorOutput();
     }
 }
