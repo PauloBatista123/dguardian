@@ -11,6 +11,11 @@ class AusenciaController extends Controller
         return view('admin.pages.ausencias.index');
     }
 
+    public function editar($id)
+    {
+        return view('admin.pages.ausencias.editar', [ 'id' => $id]);
+    }
+
     public function importacoes()
     {
         return view('admin.pages.uploads.ausencias');

@@ -7,14 +7,16 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   {{-- <link rel="stylesheet" href="{{asset('app.css')}}">
-  <script {{ asset('app2.js') }}></script> --}}
-  @livewireStyles
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
+  <script src="{{asset('app2.js') }}"></script> --}}
 
-  <title>{{ config('app.name', 'DGuardian') }}</title>
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
+  @livewireStyles
+
+  <title>{{ $title ?? 'DGuardian' }}</title>
 </head>
+
 <body>
-  <div class="min-h-screen bg-gradient-to-t from-slate-100 from-20% via-slate-100 via-40% to-slate-200 to-80%" id="app">
+  <div class="min-h-screen bg-gradient-to-t from-slate-100 from-20% via-slate-100 via-40% to-slate-200 to-80% pb-4" id="app">
     @include('admin.components.navbar')
     @yield('content')
   </div>

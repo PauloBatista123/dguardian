@@ -12,7 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('dguardian:bloqueio-ausencia')->dailyAt('08:36')->timezone('America/Sao_Paulo');
+        $schedule->command('dguardian:desbloquear-usuarios')->dailyAt('08:35')->timezone('America/Sao_Paulo');
     }
 
     /**

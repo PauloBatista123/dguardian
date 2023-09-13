@@ -5,6 +5,7 @@ use Exception;
 use Illuminate\Support\Arr;
 use LdapRecord\Auth\BindException;
 use LdapRecord\Container;
+use LdapRecord\LdapRecordException;
 use LdapRecord\Models\ActiveDirectory\User;
 use LdapRecord\Models\Attributes\AccountControl;
 
@@ -86,7 +87,7 @@ Class LdapService{
 
                 $userAd->save();
 
-                return 'Disabilitado com sucesso';
+                return 'Desabilitado com sucesso';
             }
 
             return 'Não concluido!';
@@ -130,6 +131,40 @@ Class LdapService{
 
             return $error->getErrorMessage();
         }
+
+    }
+
+    public function resetPassword(string $user): string
+    {
+        $user = new User();
+        dd($user->getConnection()->getLdapConnection());
+        $result = $this->getUserObject($user);
+
+        $userAd = User::find($result['distinguishedname'][0]);
+
+        if($userAd->isEnabled()){
+            $userAd->unicodepwd = 'Sicoob@aracoop01';
+
+            try{
+                $userAd->save();
+
+                return 'Resetado com sucesso';
+
+            } catch (LdapRecordException $ex) {
+                // The currently bound LDAP user does not
+                // have permission to reset passwords.
+                $error = $ex->getDetailedError();
+
+                return $error->getErrorMessage();
+
+            }catch (Exception $ex) {
+
+                dd($ex);
+            }
+
+        }
+
+        return 'Usuário não pode estar Bloqueado!';
 
     }
 

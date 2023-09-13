@@ -12,10 +12,10 @@ class Ausencia extends Model
     protected $table = 'ausencias';
 
     protected $fillable = [
-        'inicio', 'fim', 'usuario_id', 'tipo', 'descricao',
+        'inicio', 'fim', 'usuario_id', 'tipo', 'descricao', 'log', 'status', 'finished_at'
     ];
 
-    public function tipoAusencias(): array
+    public static function tipoAusencias(): array
     {
         return [
             'atestado' => 'Atestado Médico',

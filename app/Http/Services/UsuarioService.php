@@ -47,4 +47,13 @@ class UsuarioService {
         return $returnAD;
     }
 
+    public function resetarSenha(string $userId): string
+    {
+        $user = User::find($userId);
+
+        $returnAD = $this->ldapService->resetPassword($user->email);
+
+        return $returnAD;
+    }
+
 }

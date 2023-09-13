@@ -5,51 +5,49 @@ namespace App\Console\Commands;
 use App\Http\Services\UsuarioService;
 use App\Interfaces\AusenciaStatus;
 use App\Models\Ausencia;
-use Carbon\Carbon;
 use Exception;
 use Illuminate\Console\Command;
 
-class BloquearUsuarios extends Command
+class DesbloquearUsuarios extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'dguardian:bloqueio-ausencia';
+    protected $signature = 'dguardian:desbloquear-usuarios';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Bloquear usuários com ausência temporária';
+    protected $description = 'Comando para desbloquear usuários com ausencia';
 
     /**
      * Execute the console command.
      */
     public function handle(UsuarioService $usuarioService)
     {
-
-        $ausenciasHoje = Ausencia::where('inicio', '=', now()->format('Y-m-d'))->get();
+        $usuariosVoltaHoje = Ausencia::where('fim', '=', now()->subDay()->format('Y-m-d'))->get();
 
         $this->output->title("Iniciando processo!");
 
-        $this->output->info("Encontramos: ". count($ausenciasHoje));
+        $this->output->info("Encontramos: ". count($usuariosVoltaHoje));
 
-        $bar = $this->output->createProgressBar(count($ausenciasHoje));
+        $bar = $this->output->createProgressBar(count($usuariosVoltaHoje));
 
         $bar->start();
 
-        foreach($ausenciasHoje as $item){
+        foreach($usuariosVoltaHoje as $item){
             try{
 
-                $retorno = $usuarioService->desabilitarUsuario($item->usuario_id);
+                $retorno = $usuarioService->habilitarUsuario($item->usuario_id);
 
                 $item->update([
                     'descricao' => $retorno,
                     'finished_at' => now(),
-                    'status' => AusenciaStatus::PROCESSADO
+                    'status' => AusenciaStatus::DESBLOQUEADO
                 ]);
 
                 $bar->advance();
@@ -73,7 +71,4 @@ class BloquearUsuarios extends Command
 
         $this->output->success("Operação finalizada com sucesso");
     }
-
-
-
 }

@@ -67,8 +67,8 @@ class AusenciasImport implements ToCollection, WithHeadingRow, ShouldQueue, With
 
             Ausencia::updateOrCreate([
                 'usuario_id' => User::where('email', $row['usuario'])->first()->id,
-                'inicio' => Carbon::createFromFormat('d/m/Y H:i', $row['inicio']),
-                'fim' => Carbon::createFromFormat('d/m/Y H:i', $row['fim']),
+                'inicio' => Carbon::createFromFormat('d/m/Y', $row['inicio']),
+                'fim' => Carbon::createFromFormat('d/m/Y', $row['fim']),
                 'tipo' => $row['tipo_de_ausencia']
             ], [
                 'descricao' => $row['descricao']

@@ -9,11 +9,13 @@
 
   <title>{{ config('app.name', 'DGuardian') }}</title>
 
+  <link rel="stylesheet" href="{{asset('app.css')}}">
+  <script src="{{ asset('app2.js') }}"></script>
   <!-- Scripts -->
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
+  {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 </head>
 <body>
-  <div class="min-h-screen bg-gradient-to-t from-sky-900 from-20% via-sky-900 via-40% to-sky-800 to-80% dark:from-gray-700 dark:via-gray-700 dark:to-gray-700" id="app">
+  <div class="min-h-screen" id="app">
     @yield('content')
   </div>
 </body>

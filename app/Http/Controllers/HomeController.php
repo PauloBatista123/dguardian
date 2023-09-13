@@ -55,6 +55,11 @@ class HomeController extends Controller
         return view('admin.pages.usuarios.index');
     }
 
+    public function editar($usuarioId)
+    {
+        return view('admin.pages.usuarios.editar', [ 'usuarioId' => $usuarioId ]);
+    }
+
     public function tokens(int $id)
     {
         $usuario = User::find($id);

@@ -38,8 +38,10 @@ Route::middleware([CheckStatusForUser::class])->group(function() {
 
     Route::get('/usuarios', [HomeController::class, 'usuarios'])->name('usuarios.listar');
     Route::get('/usuarios/tokens/{id}', [HomeController::class, 'tokens'])->name('usuarios.tokens');
+    Route::get('/usuarios/{usuarioId}', [HomeController::class, 'editar'])->name('usuarios.editar');
 
     Route::get('/ausencias', [AusenciaController::class, 'ausencias'])->name('ausencias.listar');
+    Route::get('/ausencias/editar/{id}', [AusenciaController::class, 'editar'])->name('ausencias.editar');
 
     Route::get('/ausencias/importacoes', [AusenciaController::class, 'importacoes'])->name('ausencias.importacoes.listar');
 

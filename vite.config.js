@@ -10,16 +10,17 @@ export default defineConfig({
     ],
     // server: {
     //     hmr: {
-    //         host: "http://localhost",
+    //         host: "http://10.54.56.147",
+    //         port: 8000,
     //     },
     // },
-    // build: {
-    //     rollupOptions: {
-    //         output: {
-    //             entryFileNames: `assets/[name].js`,
-    //             chunkFileNames: `assets/[name].js`,
-    //             assetFileNames: `assets/[name].[ext]`,
-    //         },
-    //     },
-    // },
+    build: {
+        rollupOptions: {
+            output: {
+                entryFileNames: `assets/[name].js`,
+                chunkFileNames: `assets/[name].js`,
+                assetFileNames: `assets/[name].[ext]`,
+            },
+        },
+    },
 });
