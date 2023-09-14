@@ -1,17 +1,13 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="min-h-screen min-w-full flex justify-center content-center items-center bg-cover bg-no-repeat" style="background-image: url(/fundo.jpg)">
-  <div class="min-h-screen flex flex-row items-center justify-center w-full bg-slate-900/70">
-    <div class="min-w-[48rem] p-8">
+<div class="min-h-screen min-w-full flex justify-center content-center items-center bg-no-repeat" style="background-image: url(/fundo.jpg);">
+  <div class="min-h-screen flex flex-row items-center justify-center w-full bg-slate-900/50">
+    <div class="min-w-[38rem] p-8">
       <div class="bg-gradient-to-tr border from-zinc-100 to-slate-50 rounded-lg p-10 shadow-2xl dark:from-gray-900 dark:to-gray-800 dark:border-gray-700">
-        <div class="flex justify-center items-center flex-col gap-4 my-4 pb-3">
-          <img width="180" class="object-cover" src="/novalogo.png" alt="">
-          <div class="my-3">
-            <span class="text-lg text-slate-600 dark:text-turquesa font-bold uppercase">{{ __('Autenticação no ambiente Sicoob Aracoop') }}</span>
-          </div>
+        <div class="flex justify-center items-center flex-col">
+          <img width="320" class="object-cover" src="/logoDguardian.png" alt="">
         </div>
-        @if($message = \Session::get('errors'))
+        @if($message = \Session::get('error'))
         <div class="p-4 w-100 text-red-200 font-bold bg-red-900 rounded-lg text-center flex flex-col">
           Ops! Problema no login...
           <span class="text-sm">{{$message['message']}}</span>
@@ -21,8 +17,8 @@
           <form class="w-100 d-flex align-items-center flex-column" method="POST" action="{{ route('login') }}">
             @csrf
             <div class="w-50 my-2">
-              <label for="email" class="block mb-2 text-sm font-bold text-gray-900 dark:text-turquesa">Seu email</label>
-              <input type="text" name="email" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-cyan-500 dark:focus:border-cyan-500" placeholder="Email" required>
+              <label for="email" class="block mb-2 text-sm font-bold text-gray-900 dark:text-turquesa">Seu usuário</label>
+              <input type="text" name="email" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-cyan-500 dark:focus:border-cyan-500" placeholder="Usuário" required>
             </div>
 
             <div class="w-50 my-2">
