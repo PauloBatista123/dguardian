@@ -61,7 +61,7 @@ jobs:
         run: |
           mysql --version
           sudo apt-get install -y mysql-client
-          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -pPsw@4264#ti -e "SHOW DATABASES"
+          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -pPsw@4264#ti -e "CREATE SCHEMA IF NOT EXISTS ssoapi; USE ssoapi; SHOW TABLES;"
 
       - name: Run Pull request
         run: git pull
@@ -77,15 +77,6 @@ jobs:
           npm install
           npm run build
 
-      - name: Generate key
-        run: php artisan key:generate
-
-      - name: Clear Config
-        run: php artisan config:clear
-
-      - name: Directory Permissions
-        run: chmod -R 777 storage bootstrap/cache
-
       - name: Run Migrations
         run: php artisan migrate -v
         env:
@@ -94,3 +85,12 @@ jobs:
           DB_DATABASE: ssoapi
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
           DB_USER: root
+
+      - name: Generate key
+        run: php artisan key:generate
+
+      - name: Clear Config
+        run: php artisan config:clear
+
+      - name: Directory Permissions
+        run: chmod -R 777 storage bootstrap/cache
