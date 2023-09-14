@@ -18,9 +18,12 @@ jobs:
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Run Pull request
-        run: git pull
+        run: |
+          git checkout main
+          git merge desenvolvimento
+          git pull
       - name: Install Dependencies PHP
-        run: composer install
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Install Dependencies NodeModules
         run: npm run build
       - name: Run Migrations
