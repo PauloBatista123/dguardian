@@ -9,6 +9,7 @@ use App\Models\Role;
 use Carbon\Carbon;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Schema;
 use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
@@ -34,8 +35,10 @@ class AuthServiceProvider extends ServiceProvider
         Passport::personalAccessTokensExpireIn(Carbon::now()->addMonths(6));
         Passport::cookie('@sso-aracoop-authenticator');
 
-        Passport::tokensCan(Role::all()->mapWithKeys(function($item){
-            return [$item['nome'] => $item['descricao']];
-        })->all());
+        if(Schema::hasTable('roles')){
+            Passport::tokensCan(Role::all()->mapWithKeys(function($item){
+                return [$item['nome'] => $item['descricao']];
+            })->all());
+        }
     }
 }
