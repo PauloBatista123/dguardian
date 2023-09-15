@@ -61,12 +61,12 @@
           </div>
           <div class="flex px-6 py-4 gap-2 w-full justify-center">
             <div class="inline-flex rounded-md shadow-sm" role="group">
-              <button wire:click='confirmDeletar({{$item->id}})' type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-red-800 bg-transparent border border-red-900 rounded-l-lg hover:bg-red-800 hover:text-white focus:z-10 focus:ring-2 focus:ring-red-500 focus:bg-red-800 focus:text-white ">
+              <button data-tooltip-target="tooltip-deletar" wire:click='confirmDeletar({{$item->id}})' type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-red-800 bg-transparent border border-red-900 rounded-l-lg hover:bg-red-800 hover:text-white focus:z-10 focus:ring-2 focus:ring-red-500 focus:bg-red-800 focus:text-white ">
                 <svg class="w-3.5 h-3.5 mr-2 text-white-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z" />
                 </svg>
               </button>
-              <a href="{{route('ausencias.editar', $item->id)}}" type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-800 bg-transparent border border-blue-800 rounded-r-md hover:bg-blue-800 hover:text-white focus:z-10 focus:ring-2 focus:ring-blue-800 focus:bg-blue-800 focus:text-white">
+              <a data-tooltip-target="tooltip-editar" href="{{route('ausencias.editar', $item->id)}}" type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-800 bg-transparent border border-blue-800 rounded-r-md hover:bg-blue-800 hover:text-white focus:z-10 focus:ring-2 focus:ring-blue-800 focus:bg-blue-800 focus:text-white">
                 <svg class="w-3.5 h-3.5 text-white-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 21">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.418 17.861 1 20l2.139-6.418m4.279 4.279 10.7-10.7a3.027 3.027 0 0 0-2.14-5.165c-.802 0-1.571.319-2.139.886l-10.7 10.7m4.279 4.279-4.279-4.279m2.139 2.14 7.844-7.844m-1.426-2.853 4.279 4.279" />
                 </svg>
@@ -136,5 +136,13 @@
     </div>
   </div>
 
-
+  {{-- tooltips --}}
+  <div id="tooltip-editar" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+    Editar Ausência
+    <div class="tooltip-arrow" data-popper-arrow></div>
+  </div>
+  <div id="tooltip-deletar" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+    Deletar Ausência
+    <div class="tooltip-arrow" data-popper-arrow></div>
+  </div>
 </div>

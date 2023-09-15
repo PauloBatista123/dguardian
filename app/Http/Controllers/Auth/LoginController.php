@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use SocialiteProviders\Manager\Config;
 
 class LoginController extends Controller
 {
@@ -151,14 +152,24 @@ class LoginController extends Controller
 
     }
 
+    public function getConfig()
+    {
+        return new Config(
+            env('AZURE_CLIENT_ID'),
+            env('AZURE_CLIENT_SECRET'),
+            env('AZURE_REDIRECT_URI'),
+            ['tenant' => env('AZURE_TENANT_ID', 'common'), 'prompt' => 'none'],
+        );
+    }
+
     public function loginMicrosoft()
     {
-        return Socialite::driver('microsoft')->scopes(['User.Read'])->redirect();
+        return Socialite::driver('azure')->redirect();
     }
 
     public function loginMicrosoftCallback()
     {
-        $user = Socialite::driver('microsoft')->user();
+        $user = Socialite::driver('azure')->user();
 
         dd($user);
     }

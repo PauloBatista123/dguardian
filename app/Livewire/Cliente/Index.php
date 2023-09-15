@@ -6,6 +6,7 @@ use Laravel\Passport\ClientRepository;
 use Laravel\Passport\Passport;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\On;
 
 class Index extends Component
 {
@@ -24,6 +25,7 @@ class Index extends Component
         $this->clienteRepository = $clients;
     }
 
+    #[On('render-cliente')]
     public function render()
     {
         return view('livewire.cliente.index', [

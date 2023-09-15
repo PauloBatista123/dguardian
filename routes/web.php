@@ -39,6 +39,7 @@ Route::middleware([CheckStatusForUser::class])->group(function() {
     Route::get('/usuarios', [HomeController::class, 'usuarios'])->name('usuarios.listar');
     Route::get('/usuarios/tokens/{id}', [HomeController::class, 'tokens'])->name('usuarios.tokens');
     Route::get('/usuarios/{usuarioId}', [HomeController::class, 'editar'])->name('usuarios.editar');
+    Route::get('/usuario/logout', [HomeController::class, 'logout'])->name('usuarios.logout');
 
     Route::get('/ausencias', [AusenciaController::class, 'ausencias'])->name('ausencias.listar');
     Route::get('/ausencias/editar/{id}', [AusenciaController::class, 'editar'])->name('ausencias.editar');

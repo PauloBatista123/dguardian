@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\ClientRepository;
 use Laravel\Passport\Passport;
 use Laravel\Passport\TokenRepository;
@@ -71,5 +72,27 @@ class HomeController extends Controller
                 return !$token->client->firstParty() && !$token->revoked;
             })->values()
         ]);
+    }
+
+    public function logout(Request $request)
+    {
+
+        $tokens = $this->tokenRepository->forUser(Auth::user()->getAuthIdentifier())->filter(function ($token) {
+            return !$token->revoked;
+        });
+
+        if(count($tokens)){
+            $tokens->foreach(function ($token) {
+                $token->revoke();
+            });
+        }
+
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 }
