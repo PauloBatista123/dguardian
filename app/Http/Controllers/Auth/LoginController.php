@@ -14,6 +14,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use SocialiteProviders\Manager\Config;
+use Spatie\WebhookServer\WebhookCall;
+use App\Http\Services\SignatureHook;
+use App\Http\Services\UsuarioService;
+use App\Jobs\ProcessLogoutUser;
 
 class LoginController extends Controller
 {
@@ -133,13 +137,16 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         try{
-            $this->guard()->logout();
+
+            Auth::logout();
 
             $request->session()->invalidate();
 
             $request->session()->regenerateToken();
 
-            $request->user()->tokens()->delete();
+            $request->user()->tokens()->revoke();
+
+            $request->session()->flush();
 
             if ($response = $this->loggedOut($request)) {
                 return $response;
@@ -167,10 +174,27 @@ class LoginController extends Controller
         return Socialite::driver('azure')->redirect();
     }
 
-    public function loginMicrosoftCallback()
+    public function loginMicrosoftCallback(Request $request)
     {
-        $user = Socialite::driver('azure')->user();
+        $userMicrosof = Socialite::driver('azure')->user();
 
-        dd($user);
+        $user = User::where('email_address', $userMicrosof->getEmail())->first();
+
+        if($user->status != 'ativo'){
+            session()->flash('error', ['message' => 'Usuário não autorizado! Entre em contato com administrador']);
+            return redirect()->route('login');
+        }
+
+        Auth::login($user);
+        Auth::user()->update([
+            'last_login' => Carbon::now()->toDateTimeString(),
+            'ip_login' => $request->getClientIp()
+        ]);
+
+        if ($request->hasSession()) {
+            $request->session()->put('auth.password_confirmed_at', time());
+        }
+
+        return $this->sendLoginResponse($request);
     }
 }

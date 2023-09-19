@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:api')->get('/user', [AuthController::class, 'user']);
+Route::middleware('auth:api')->get('/oauth/logout', [LoginController::class, 'logout']);

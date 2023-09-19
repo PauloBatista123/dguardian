@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Laravel\Passport\Client as PassportClient;
 
 class Client extends PassportClient
@@ -21,6 +19,7 @@ class Client extends PassportClient
         'logo',
         'description',
         'homepage',
+        'web_hook_logout'
     ];
 
     public function skipsAuthorization()

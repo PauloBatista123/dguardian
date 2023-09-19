@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use stdClass;
 
 class AuthController extends Controller
 {
@@ -19,13 +21,17 @@ class AuthController extends Controller
         try {
             $user = Auth()->user();
 
-            $roles = $user->perfils[0]->permissoes->map(function($permissao){
-                return $permissao->nome;
-            });
+            if(count($user->perfils)){
+                $roles = $user->perfils[0]->permissoes->map(function($permissao){
+                    return $permissao->nome;
+                });
+
+                $user['roles'] = $roles;
+            }else {
+                $user['roles'] = [];
+            }
 
             $user['isAdmin'] = (bool) request()->user()->existeAdmin();
-            $user['roles'] = $roles;
-            $user['token'] = $user->createToken($user->name, count($roles) === 0 ? ['isadmin'] : $roles->toArray())->accessToken;
 
             return $user;
 

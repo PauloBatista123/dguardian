@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\UsuarioService;
+use App\Jobs\ProcessLogoutUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +34,7 @@ class HomeController extends Controller
      * @param  \Laravel\Passport\TokenRepository  $tokenRepository
      * @return void
      */
-    public function __construct(TokenRepository $tokenRepository, ClientRepository $clientRepository)
+    public function __construct(TokenRepository $tokenRepository, ClientRepository $clientRepository, protected UsuarioService $usuarioService)
     {
         $this->middleware('auth');
         $this->tokenRepository = $tokenRepository;
@@ -58,6 +60,8 @@ class HomeController extends Controller
 
     public function editar($usuarioId)
     {
+        dd(User::find($usuarioId));
+
         return view('admin.pages.usuarios.editar', [ 'usuarioId' => $usuarioId ]);
     }
 
@@ -76,6 +80,7 @@ class HomeController extends Controller
 
     public function logout(Request $request)
     {
+        ProcessLogoutUser::dispatch($request->user());
 
         $tokens = $this->tokenRepository->forUser(Auth::user()->getAuthIdentifier())->filter(function ($token) {
             return !$token->revoked;
