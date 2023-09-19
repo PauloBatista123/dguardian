@@ -82,9 +82,9 @@ class HomeController extends Controller
         });
 
         if(count($tokens)){
-            $tokens->foreach(function ($token) {
+           foreach($tokens as $token){
                 $token->revoke();
-            });
+            };
         }
 
         Auth::logout();

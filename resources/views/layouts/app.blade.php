@@ -7,7 +7,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>{{ config('app.name', 'DGuardian') }}</title>
+  <title>{{ 'DGuardian' }}</title>
 
   {{-- <link rel="stylesheet" href="{{asset('app.css')}}">
   <script src="{{ asset('app2.js') }}"></script> --}}
