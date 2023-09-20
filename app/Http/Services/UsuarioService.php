@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Http\Services\LdapService;
+use App\Models\Perfil;
 use App\Models\User;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -73,6 +74,25 @@ class UsuarioService {
             ->where('oat.user_id', $userId)
             ->groupBy('oat.client_id')
             ->get();
+    }
+
+    public function existePerfil(User $usuario, string $perfil)
+    {
+        return $usuario->perfils->contains('nome', $perfil);
+    }
+
+    public function removerPerfil(User $usuario, Perfil $perfil)
+    {
+        return $usuario->perfils()->detach($perfil);
+    }
+
+    public function adicionarPerfil(User $usuario, Perfil $perfil)
+    {
+        if($this->existePerfil($usuario, $perfil->nome)){
+            return;
+        }
+
+        return $usuario->perfils()->attach($perfil);
     }
 
 }

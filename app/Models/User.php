@@ -70,7 +70,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
-    public function adicionaPerfil($perfil){
+    public function adicionaPerfil(string $perfil){
 
         if (is_string($perfil)) {
             return $this->perfils()->save(
@@ -92,18 +92,7 @@ class User extends Authenticatable
         }
         return $this->perfils()->detach(
             Perfil::where('nome', '=', $perfil->nome)->firstOrFail()
-
         );
-    }
-
-    public function existePerfil($perfil){
-
-        if (is_string($perfil)) {
-            return $this->perfils->contains('nome', $perfil);
-        }
-
-        return $perfil->intersect($this->perfils)->count();
-
     }
 
     public static function existePermissao(int|string $permissao, int|string $perfil){

@@ -22,7 +22,12 @@ Class LdapService{
    public function __construct()
    {
         $connection = Container::getConnection('default');
-        $connection->connect();
+
+        try{
+            $connection->connect();
+        }catch(Exception $e){
+            abort(500, 'Não conseguimos conectar ao LDAP, contate o administrador');
+        }
 
         $this->connection = $connection;
    }

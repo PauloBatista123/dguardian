@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Perfil extends Model
 {
@@ -32,5 +33,10 @@ class Perfil extends Model
 
     public function removerPermissao($permissao){
         return $this->permissoes()->detach($permissao);
+    }
+
+    public function cliente()
+    {
+        return $this->belongsToMany(Client::class);
     }
 }

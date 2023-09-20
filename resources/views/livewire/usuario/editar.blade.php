@@ -19,39 +19,44 @@
             </div>
           </div>
         </span>
-
       </div>
-      <div class="w-full h-auto border shadow-md rounded-lg mt-6 bg-slate-50 p-8">
-        <form>
-          <div class="grid gap-6 mb-6 md:grid-cols-2">
-            <div class="relative z-0">
-              <input wire:model='name' type="text" id="floating_standard" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-verdeescuro peer" placeholder=" " />
-              <label for="floating_standard" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-verdeescuro peer-focus:dark:text-verdeescuro peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nome</label>
-            </div>
-            <div class="relative z-0">
-              <input wire:model='email' type="text" id="floating_standard" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-verdeescuro peer" placeholder=" " />
-              <label for="floating_standard" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-verdeescuro peer-focus:dark:text-verdeescuro peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Usuário</label>
-            </div>
+      <div class="flex flex-row gap-2 w-full">
+        <div class="w-full">
+          <div class="w-full h-auto border shadow-md rounded-lg mt-6 bg-slate-50 p-8">
+            <form>
+              <div class="grid gap-6 mb-6 md:grid-cols-2">
+                <div class="relative z-0">
+                  <input wire:model='name' type="text" id="floating_standard" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-verdeescuro peer" placeholder=" " />
+                  <label for="floating_standard" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-verdeescuro peer-focus:dark:text-verdeescuro peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nome</label>
+                </div>
+                <div class="relative z-0">
+                  <input wire:model='email' type="text" id="floating_standard" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-verdeescuro peer" placeholder=" " />
+                  <label for="floating_standard" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-verdeescuro peer-focus:dark:text-verdeescuro peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Usuário</label>
+                </div>
+              </div>
+              <div class="grid gap-6 mb-6 md:grid-cols-2">
+                <div class="relative z-0">
+                  <input wire:model='physicaldeliveryofficename' type="text" id="floating_standard" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-verdeescuro peer" placeholder=" " />
+                  <label for="floating_standard" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-verdeescuro peer-focus:dark:text-verdeescuro peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">CPF</label>
+                </div>
+                <div class="relative z-0">
+                  <input wire:model='email_address' type="text" id="floating_standard" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-verdeescuro peer" placeholder=" " />
+                  <label for="floating_standard" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-verdeescuro peer-focus:dark:text-verdeescuro peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
+                </div>
+              </div>
+            </form>
           </div>
-          <div class="grid gap-6 mb-6 md:grid-cols-2">
-            <div class="relative z-0">
-              <input wire:model='physicaldeliveryofficename' type="text" id="floating_standard" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-verdeescuro peer" placeholder=" " />
-              <label for="floating_standard" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-verdeescuro peer-focus:dark:text-verdeescuro peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">CPF</label>
-            </div>
-            <div class="relative z-0">
-              <input wire:model='email_address' type="text" id="floating_standard" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-verdeescuro peer" placeholder=" " />
-              <label for="floating_standard" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-verdeescuro peer-focus:dark:text-verdeescuro peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
-            </div>
+          <div class="w-full flex-1 h-auto border shadow-md rounded-lg mt-2 bg-slate-50 p-8">
+            <p>Membro de:</p>
+            @forelse ($memberOf as $item)
+            <span>{{$item}}</span>
+            @empty
+            @endforelse
           </div>
-        </form>
-      </div>
-      <div class="w-full h-auto border shadow-md rounded-lg mt-2 bg-slate-50 p-8">
-        <p>Membro de:</p>
-        @forelse ($memberOf as $item)
-        <span>{{$item}}</span>
-        @empty
-
-        @endforelse
+        </div>
+        <div class="w-full h-auto border shadow-md rounded-lg mt-6 bg-slate-50 p-8">
+          @livewire('usuario.perfil', ['usuario' => $this->usuario], key($this->usuario->id))
+        </div>
       </div>
     </div>
   </div>

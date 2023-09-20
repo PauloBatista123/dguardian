@@ -19,11 +19,13 @@ class Editar extends Component
     public $samaccountname;
     public $memberOf = [];
 
+    public User $usuario;
+
     public function mount($usuarioId)
     {
-        $usuario = User::findOrFail($usuarioId);
+        $this->usuario = User::findOrFail($usuarioId);
 
-        $user = ActiveDirectoryUser::where('samaccountname', '=', $usuario->email)->first();
+        $user = ActiveDirectoryUser::where('samaccountname', '=', $this->usuario->email)->first();
 
         $this->name = isset($user->name[0]) ? $user->name[0] : '';
         $this->description = isset($user->description[0]) ? $user->description[0] : '';

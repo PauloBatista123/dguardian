@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Laravel\Passport\ClientRepository;
 use Laravel\Passport\Passport;
@@ -34,5 +35,20 @@ class ClienteController extends Controller
     public function revogar(int|string $clientId)
     {
         if($this->clients->revoked($clientId));
+    }
+
+    public function perfis(string $clientId)
+    {
+        return view('admin.pages.clientes.perfis.index', ['clienteId' => $clientId]);
+    }
+
+    public function permissoes(string $perfilId)
+    {
+        return view('admin.pages.clientes.perfis.permissoes', ['perfilId' => $perfilId]);
+    }
+
+    public function roles(string $clientId)
+    {
+        return view('admin.pages.clientes.permissoes', ['cliente' => Client::findOrFail($clientId)]);
     }
 }

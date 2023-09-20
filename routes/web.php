@@ -47,4 +47,8 @@ Route::middleware([CheckStatusForUser::class])->group(function() {
     Route::get('/ausencias/importacoes', [AusenciaController::class, 'importacoes'])->name('ausencias.importacoes.listar');
 
     Route::get('/clientes', [ClienteController::class, 'clientes'])->name('clientes.listar');
+    Route::get('/clientes/{clienteId}/perfis', [ClienteController::class, 'perfis'])->name('clientes.perfis');
+    Route::get('/clientes/perfis/{perfilId}', [ClienteController::class, 'permissoes'])->name('clientes.perfis.permissoes');
+    Route::get('/clientes/{clienteId}/permissoes', [ClienteController::class, 'roles'])->name('clientes.roles');
+
 });

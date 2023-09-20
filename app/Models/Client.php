@@ -26,4 +26,19 @@ class Client extends PassportClient
     {
         return true;
     }
+
+    public function perfis()
+    {
+        return $this->belongsToMany(Perfil::class);
+    }
+
+    public function adicionarPerfil($perfil)
+    {
+        $this->perfis()->save($perfil);
+    }
+
+    public function permissoes()
+    {
+        return $this->belongsTo(Role::class, 'client_id', 'id');
+    }
 }

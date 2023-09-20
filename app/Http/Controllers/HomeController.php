@@ -60,8 +60,6 @@ class HomeController extends Controller
 
     public function editar($usuarioId)
     {
-        dd(User::find($usuarioId));
-
         return view('admin.pages.usuarios.editar', [ 'usuarioId' => $usuarioId ]);
     }
 
