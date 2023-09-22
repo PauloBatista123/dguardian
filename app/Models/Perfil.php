@@ -20,7 +20,7 @@ class Perfil extends Model
         'descricao',
     ];
 
-    protected $with = ['permissoes'];
+    protected $with = ['permissoes', 'cliente'];
 
     public function permissoes(){
 
@@ -38,5 +38,10 @@ class Perfil extends Model
     public function cliente()
     {
         return $this->belongsToMany(Client::class);
+    }
+
+    public function usuarios()
+    {
+        return $this->belongsToMany(User::class);
     }
 }

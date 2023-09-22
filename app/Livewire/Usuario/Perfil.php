@@ -6,6 +6,8 @@ use App\Http\Services\UsuarioService;
 use App\Models\Client;
 use App\Models\Perfil as ModelsPerfil;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -36,6 +38,8 @@ class Perfil extends Component
 
     public function salvar($perfilId)
     {
+        if(!Gate::allows(Auth::user()->perfilDguardian(), 'usuarios.permissao.editar')) return $this->alert('error', 'Você não possui permissão para executar a ação');
+
         $perfil = ModelsPerfil::find($perfilId);
 
         if($this->usuarioService->existePerfil($this->usuario, $perfil->nome)){

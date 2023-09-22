@@ -5,6 +5,8 @@ namespace App\Livewire\Usuario;
 use App\Http\Services\LdapService;
 use App\Http\Services\UsuarioService;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Laravel\Passport\ClientRepository;
 use Laravel\Passport\TokenRepository;
@@ -41,6 +43,8 @@ class Index extends Component
 
     public function bloquear($usuarioId)
     {
+        if(!Gate::allows(Auth::user()->perfilDguardian(), 'usuarios.bloquear')) return $this->alert('error', 'Você não possui permissão para executar a ação');
+
         $returnAd = $this->usuarioService->desabilitarUsuario($usuarioId);
 
         $this->alert('success', 'Usuário bloqueado e tokens revogados', [
@@ -50,6 +54,8 @@ class Index extends Component
 
     public function desbloquear($userId)
     {
+        if(!Gate::allows(Auth::user()->perfilDguardian(), 'usuarios.desbloquear')) return $this->alert('error', 'Você não possui permissão para executar a ação');
+
         $returnAd = $this->usuarioService->habilitarUsuario($userId);
 
         $this->alert('success', 'Usuário desbloqueado', [

@@ -21,6 +21,7 @@
         </span>
       </div>
       <div class="flex flex-row gap-2 w-full">
+        @can(Auth::user()->perfilDguardian(), 'usuarios.editar.listar')
         <div class="w-full">
           <div class="w-full h-auto border shadow-md rounded-lg mt-6 bg-slate-50 p-8">
             <form>
@@ -54,9 +55,13 @@
             @endforelse
           </div>
         </div>
+        @endcan
+
+        @can(Auth::user()->perfilDguardian(), 'usuarios.permissao.listar')
         <div class="w-full h-auto border shadow-md rounded-lg mt-6 bg-slate-50 p-8">
           @livewire('usuario.perfil', ['usuario' => $this->usuario], key($this->usuario->id))
         </div>
+        @endcan
       </div>
     </div>
   </div>

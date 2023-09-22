@@ -5,10 +5,13 @@ namespace App\Providers;
 // use Illuminate\Support\Facades\Gate;
 
 use App\Models\Client;
+use App\Models\Perfil;
 use App\Models\Role;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Schema;
 use Laravel\Passport\Passport;
 
@@ -29,6 +32,17 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
+
+        foreach(Client::where('name', 'Dguardian')->first()->perfis as $perfil){
+            Gate::define($perfil->nome, function(User $user, string $permissao) use ($perfil){
+                $role = Role::where('nome', $permissao)->first();
+
+                if($role) return $user->existePermissao($role->id, $perfil->id);
+
+                return false;
+            });
+        }
+
         Passport::tokensExpireIn(Carbon::now()->addDays(2));
         Passport::useClientModel(Client::class);
         Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));

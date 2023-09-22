@@ -9,15 +9,17 @@
           Permissões de {{$this->cliente->name}}
         </span>
         <div class="inline-flex rounded-md shadow-sm" role="group">
-          <button data-modal-target="defaultModal" data-modal-toggle="defaultModal" type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-            <svg class="w-3 h-3 mr-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m2.133 2.6 5.856 6.9L8 14l4 3 .011-7.5 5.856-6.9a1 1 0 0 0-.804-1.6H2.937a1 1 0 0 0-.804 1.6Z" />
+
+          <button data-modal-target="defaultModal" data-modal-toggle="defaultModal" type="button" class="group inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-turquesa focus:z-10 focus:ring-2 focus:ring-turquesa focus:text-turquesa-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-turquesa dark:focus:text-white">
+            <svg class="w-3 h-3 mr-2 text-gray-900 group-hover:text-turquesa" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.994 19a8.999 8.999 0 1 1 3.53-17.281M5.995 9l4 4 7-8m-1 8v5m-2.5-2.5h5" />
             </svg>
+
             Adicionar
           </button>
         </div>
       </div>
-      <div class="grid grid-cols-3 gap-4 w-full">
+      <div class="grid grid-cols-{{count($permissoes) ? 3 : 2}} gap-4 w-full">
         @forelse ($permissoes as $item)
         <div class="border shadow-md rounded-lg mt-2 bg-slate-50">
           <div class="flex flex-row border-b p-4 justify-between">
@@ -28,19 +30,47 @@
             </div>
             <div class="flex flex-col align-content-end">
               <div class="py-1 text-end">
-                <button data-tooltip-target="tooltip-revogar" wire:click="revogar('{{$item->id}}')" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2">
+                <button data-tooltip-target="tooltip-deletar" wire:click="deletar('{{$item->id}}')" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2">
                   <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m13 7-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                   </svg>
-                  <span class="sr-only">Revogar</span>
+                  <span class="sr-only">Deletar</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
         @empty
-
+        @include('admin.components.listaVazia')
         @endforelse
+      </div>
+    </div>
+  </div>
+
+  <!-- Main modal -->
+  <div wire:ignore id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-2xl max-h-full">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <!-- Modal header -->
+        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+          <div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+              Adicionar nova permissão
+            </h3>
+          </div>
+          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <!-- Modal body -->
+        <div class="p-6 space-y-6">
+          @livewire('cliente.permissao.adicionar', ['cliente' => $this->cliente ], key('permissao.adicionar'))
+        </div>
+        <!-- Modal footer -->
       </div>
     </div>
   </div>

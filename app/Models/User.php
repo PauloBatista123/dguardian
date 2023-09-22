@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use Laravel\Passport\HasApiTokens;
+use stdClass;
 
 class User extends Authenticatable
 {
@@ -53,8 +53,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    protected $with = ['perfils'];
-
     public function logoutSso()
     {
         $access_token = Session::get('acesso')['access_token'];
@@ -68,6 +66,11 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function databaseSession()
+    {
+        return $this->hasOne(Session::class, 'user_id', 'id');
     }
 
     public function adicionaPerfil(string $perfil){
@@ -107,8 +110,18 @@ class User extends Authenticatable
 
     }
 
-    public function existeAdmin()
+
+    public function perfilDguardian(): string
     {
-        return $this->existePerfil('Master');
+        $perfil = DB::table('client_perfil')
+            ->join('oauth_clients', 'client_perfil.client_id', '=', 'oauth_clients.id')
+            ->join('perfils', 'client_perfil.perfil_id', '=', 'perfils.id')
+            ->join('perfil_user', 'client_perfil.perfil_id', '=', 'perfil_user.perfil_id')
+            ->select('oauth_clients.name as cliente', 'perfils.nome as perfil', 'perfil_user.user_id as user')
+            ->where('perfil_user.user_id', auth()->user()->id)
+            ->where('oauth_clients.name', 'Dguardian')
+            ->dd();
+
+        return $perfil->perfil ?? 'vazio';
     }
 }

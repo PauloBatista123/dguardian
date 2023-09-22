@@ -10,6 +10,7 @@
           Ausências temporárias
         </span>
         <div class="inline-flex rounded-md shadow-sm" role="group">
+          @can(Auth::user()->perfilDguardian(), 'ausencias.importacoes')
           <a href="{{route('ausencias.importacoes.listar')}}" data-modal-target="defaultModal" data-modal-toggle="defaultModal" type="a" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
             <svg class="w-3 h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
               <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
@@ -17,6 +18,7 @@
             </svg>
             Importações
           </a>
+          @endcan
           <button data-modal-target="defaultModal" data-modal-toggle="defaultModal" type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
             <svg class="w-3 h-3 mr-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m2.133 2.6 5.856 6.9L8 14l4 3 .011-7.5 5.856-6.9a1 1 0 0 0-.804-1.6H2.937a1 1 0 0 0-.804 1.6Z" />
@@ -35,13 +37,9 @@
         @endphp
         <div class="flex border-b hover:bg-gray-200 w-full items-center">
           <div class="flex px-6 py-4 text-gray-900 whitespace-nowrap w-full">
-            @if(auth()->user()->foto)
-            <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-5.jpg" alt="">
-            @else
             <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-800 rounded-full">
               <span class="font-medium text-white">{{$iniciais}}</span>
             </div>
-            @endif
             <div class="pl-3">
               <div class="text-base font-semibold">{{$item->usuario->name}}</div>
               <div class="font-normal text-gray-500">{{$item->usuario->email}}</div>
@@ -61,16 +59,20 @@
           </div>
           <div class="flex px-6 py-4 gap-2 w-full justify-center">
             <div class="inline-flex rounded-md shadow-sm" role="group">
+              @can(Auth::user()->perfilDguardian(), 'ausencias.deletar')
               <button data-tooltip-target="tooltip-deletar" wire:click='confirmDeletar({{$item->id}})' type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-red-800 bg-transparent border border-red-900 rounded-l-lg hover:bg-red-800 hover:text-white focus:z-10 focus:ring-2 focus:ring-red-500 focus:bg-red-800 focus:text-white ">
                 <svg class="w-3.5 h-3.5 mr-2 text-white-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z" />
                 </svg>
               </button>
+              @endcan
+              @can(Auth::user()->perfilDguardian(), 'ausencias.editar')
               <a data-tooltip-target="tooltip-editar" href="{{route('ausencias.editar', $item->id)}}" type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-800 bg-transparent border border-blue-800 rounded-r-md hover:bg-blue-800 hover:text-white focus:z-10 focus:ring-2 focus:ring-blue-800 focus:bg-blue-800 focus:text-white">
                 <svg class="w-3.5 h-3.5 text-white-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 21">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.418 17.861 1 20l2.139-6.418m4.279 4.279 10.7-10.7a3.027 3.027 0 0 0-2.14-5.165c-.802 0-1.571.319-2.139.886l-10.7 10.7m4.279 4.279-4.279-4.279m2.139 2.14 7.844-7.844m-1.426-2.853 4.279 4.279" />
                 </svg>
               </a>
+              @endcan
             </div>
           </div>
         </div>

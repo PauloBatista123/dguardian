@@ -3,6 +3,8 @@
 namespace App\Livewire\Cliente;
 
 use App\Http\Services\ClienteService;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -46,6 +48,8 @@ class Adicionar extends Component
 
     public function salvar()
     {
+        if(!Gate::allows(Auth::user()->perfilDguardian(), 'clientes.adicionar')) return $this->alert('error', 'Você não possui permissão para executar a ação');
+
         $validated = Validator::make(
             // Data to validate...
             ['name' => $this->name, 'redirectUri' => $this->redirectUri, 'logo' => $this->logo, 'homepage' => $this->homepage, 'description' => $this->description],

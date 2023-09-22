@@ -4,6 +4,7 @@ $firstName = $explodeName[0];
 $lastName = $explodeName[1];
 $iniciais = str_split($firstName)[0].str_split($lastName)[0];
 @endphp
+
 <div data-popover-target="popover-usuario" data-popover-placement="bottom" class="flex items-center space-x-4">
   @if(auth()->user()->foto)
   <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-5.jpg" alt="">

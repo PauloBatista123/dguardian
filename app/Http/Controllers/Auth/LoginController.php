@@ -99,6 +99,12 @@ class LoginController extends Controller
             return redirect()->back();
         }
 
+        if($user->perfils->contains('name', 'Dguardian')){
+            $this->incrementLoginAttempts($request);
+            session()->flash('error', ['message' => 'Usuário não possui perfil definido no sistema']);
+            return redirect()->back();
+        }
+
         Auth::login($user);
         Auth::user()->update([
             'last_login' => Carbon::now()->toDateTimeString(),

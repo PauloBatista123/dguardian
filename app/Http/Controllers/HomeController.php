@@ -7,6 +7,8 @@ use App\Jobs\ProcessLogoutUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Session;
 use Laravel\Passport\ClientRepository;
 use Laravel\Passport\Passport;
 use Laravel\Passport\TokenRepository;
@@ -46,7 +48,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         return view('home', [
             'clientes' => Passport::client()->where('revoked', false)->orderBy('name')->get()
@@ -55,16 +57,28 @@ class HomeController extends Controller
 
     public function usuarios()
     {
+        if(!Gate::allows(Auth::user()->perfilDguardian(), 'usuarios.listar')){
+            abort(403, 'usuarios.listar');
+        }
+
         return view('admin.pages.usuarios.index');
     }
 
     public function editar($usuarioId)
     {
+        if(!Gate::allows(Auth::user()->perfilDguardian(), 'usuarios.editar')){
+            abort(403, 'usuarios.editar');
+        }
+
         return view('admin.pages.usuarios.editar', [ 'usuarioId' => $usuarioId ]);
     }
 
     public function tokens(int $id)
     {
+        if(!Gate::allows(Auth::user()->perfilDguardian(), 'usuarios.tokens')){
+            abort(403, 'usuarios.tokens');
+        }
+
         $usuario = User::find($id);
         $tokens = $this->tokenRepository->forUser($usuario->getAuthIdentifier());
 

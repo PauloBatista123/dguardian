@@ -3,8 +3,10 @@
 namespace App\Http\Services;
 
 use App\Http\Services\LdapService;
+use App\Models\Client;
 use App\Models\Perfil;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\ClientRepository;
@@ -93,6 +95,18 @@ class UsuarioService {
         }
 
         return $usuario->perfils()->attach($perfil);
+    }
+
+    public function perfisUsuario(Request $request)
+    {
+        $usuario = $request->user();
+        $clientePerfis = Client::find($usuario->token()->client_id)->perfis;
+
+        $perfis = $clientePerfis->filter(function ($perfil) use ($usuario){
+            return $usuario->perfils->contains('id', $perfil->id);
+        });
+
+        return $perfis;
     }
 
 }
