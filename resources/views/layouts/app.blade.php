@@ -9,10 +9,8 @@
 
   <title>{{ 'DGuardian' }}</title>
 
-  {{-- <link rel="stylesheet" href="{{asset('app.css')}}">
-  <script src="{{ asset('app2.js') }}"></script> --}}
-  <!-- Scripts -->
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 </head>
 <body class="min-h-screen">
   <div id="app">

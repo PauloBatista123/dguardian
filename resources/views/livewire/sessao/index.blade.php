@@ -1,7 +1,5 @@
 <div>
-  @php
-  $browser = get_browser('Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/114.0', true);
-  @endphp
+
   <div class="w-full mt-6">
     <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto">
       <div class="w-full border-b-slate-400 shadow-md rounded-md p-6 bg-slate-50 flex justify-between">
@@ -14,6 +12,9 @@
       </div>
       <div class="w-full h-auto border shadow-md rounded-lg mt-6 bg-slate-50">
         @forelse ($sessions as $item)
+        @php
+        $browser = get_browser($item->user_agent, true);
+        @endphp
         <div wire:key='{{$item->id}}' class="md:grid grid-cols-3 border-b hover:bg-gray-200 justify-center items-center">
           <div class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
             <div class="pl-3">

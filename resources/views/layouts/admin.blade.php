@@ -7,10 +7,8 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="icon" type="image/x-icon" href="/faviconDguardian.png">
 
-  {{-- <link rel="stylesheet" href="{{asset('app.css')}}">
-  <script src="{{asset('app2.js') }}"></script> --}}
-
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+
   @livewireStyles
 
   <title>{{ $title ?? 'DGuardian' }}</title>
