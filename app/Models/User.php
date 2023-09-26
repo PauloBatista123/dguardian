@@ -120,7 +120,7 @@ class User extends Authenticatable
             ->select('oauth_clients.name as cliente', 'perfils.nome as perfil', 'perfil_user.user_id as user')
             ->where('perfil_user.user_id', auth()->user()->id)
             ->where('oauth_clients.name', 'Dguardian')
-            ->dd();
+            ->first();
 
         return $perfil->perfil ?? 'vazio';
     }

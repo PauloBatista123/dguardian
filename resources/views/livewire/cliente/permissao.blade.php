@@ -41,7 +41,7 @@
           </div>
         </div>
         @empty
-        @include('admin.components.listaVazia')
+        @include('admin.components.listaVazia', ['message' => 'Você pode adicionar novas permissões'])
         @endforelse
       </div>
     </div>

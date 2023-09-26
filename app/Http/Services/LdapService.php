@@ -141,8 +141,7 @@ Class LdapService{
 
     public function resetPassword(string $user): string
     {
-        $user = new User();
-        dd($user->getConnection()->getLdapConnection());
+
         $result = $this->getUserObject($user);
 
         $userAd = User::find($result['distinguishedname'][0]);

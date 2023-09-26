@@ -4,6 +4,6 @@
     Huum! Algo me diz que a lista está vazia...
   </span>
   <span class="text-lg text-zinc-700">
-    Você pode adicionar novas permissões para esse cliente
+    {{$message}}
   </span>
 </div>

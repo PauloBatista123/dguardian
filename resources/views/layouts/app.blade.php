@@ -14,8 +14,8 @@
   <!-- Scripts -->
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
-  <div class="min-h-screen" id="app">
+<body class="min-h-screen">
+  <div id="app">
     @yield('content')
   </div>
 </body>

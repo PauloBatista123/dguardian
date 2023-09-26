@@ -35,6 +35,7 @@ class Index extends Component
         $this->ausenciaService = $ausenciaService;
     }
 
+    #[On('render-ausencia')]
     public function render()
     {
         return view('livewire.ausencia.index', [

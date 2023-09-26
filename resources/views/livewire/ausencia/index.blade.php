@@ -19,23 +19,31 @@
             Importações
           </a>
           @endcan
+          <button data-modal-target="adicionar" data-modal-toggle="adicionar" type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-2 focus:ring-green-700 focus:text-green-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-green-500 dark:focus:text-white">
+            <svg class="w-3 h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+            </svg>
+            Adicionar
+          </button>
+          @can(Auth::user()->perfilDguardian(), 'ausencias.importacoes')
           <button data-modal-target="defaultModal" data-modal-toggle="defaultModal" type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-            <svg class="w-3 h-3 mr-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
+            <svg class="w-3 h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m2.133 2.6 5.856 6.9L8 14l4 3 .011-7.5 5.856-6.9a1 1 0 0 0-.804-1.6H2.937a1 1 0 0 0-.804 1.6Z" />
             </svg>
             Filtrar
           </button>
+          @endcan
         </div>
       </div>
       <div class="w-full h-auto border shadow-md rounded-lg mt-6 bg-slate-50">
-        @foreach ($ausencias as $item)
+        @forelse ($ausencias as $item)
         @php
         $explodeName = explode(" ", $item->usuario->name);
         $firstName = $explodeName[0];
         $lastName = $explodeName[1];
         $iniciais = str_split($firstName)[0].str_split($lastName)[0];
         @endphp
-        <div class="flex border-b hover:bg-gray-200 w-full items-center">
+        <div wire:key='ausencia-{{$item->id}}' class="flex border-b hover:bg-gray-200 w-full items-center">
           <div class="flex px-6 py-4 text-gray-900 whitespace-nowrap w-full">
             <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-800 rounded-full">
               <span class="font-medium text-white">{{$iniciais}}</span>
@@ -76,8 +84,11 @@
             </div>
           </div>
         </div>
-
-        @endforeach
+        @empty
+        <div class="grid grid-cols-2">
+          @include('admin.components.listaVazia', ['message' => 'Não encontramos registros de ausências'])
+        </div>
+        @endforelse
       </div>
       <div class="w-full h-auto rounded-lg mt-6">
         {{$ausencias->links()}}
@@ -133,6 +144,33 @@
         <!-- Modal footer -->
         <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
           <button data-modal-hide="defaultModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{-- modal adicionar --}}
+  <div wire:ignore id="adicionar" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-2xl max-h-full">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <!-- Modal header -->
+        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+          <div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+              Adicionar nova ausência
+            </h3>
+          </div>
+          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="adicionar">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <!-- Modal body -->
+        <div class="p-6 space-y-6">
+          @livewire('ausencia.adicionar', key('ausencia-adicionar'))
         </div>
       </div>
     </div>

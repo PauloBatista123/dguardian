@@ -88,7 +88,6 @@
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.109 17H1v-2a4 4 0 0 1 4-4h.87M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm7.95 2.55a2 2 0 0 1 0 2.829l-6.364 6.364-3.536.707.707-3.536 6.364-6.364a2 2 0 0 1 2.829 0Z" />
               </svg>
             </a>
-
           </div>
         </div>
 
@@ -147,6 +146,10 @@
   </div>
   <div id="tooltip-bloquear" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
     Desbloquear Usuário
+    <div class="tooltip-arrow" data-popper-arrow></div>
+  </div>
+  <div id="tooltip-resetar" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+    Resetar senha
     <div class="tooltip-arrow" data-popper-arrow></div>
   </div>
 </div>

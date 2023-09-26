@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SessoesController;
 use App\Http\Middleware\CheckStatusForUser;
 use Illuminate\Support\Facades\Route;
 
@@ -51,4 +52,5 @@ Route::middleware([CheckStatusForUser::class])->group(function() {
     Route::get('/clientes/perfis/{perfilId}', [ClienteController::class, 'permissoes'])->name('clientes.perfis.permissoes');
     Route::get('/clientes/{clienteId}/permissoes', [ClienteController::class, 'roles'])->name('clientes.roles');
 
+    Route::get('/sessoes', [SessoesController::class, 'sessoes'])->name('sessoes.listar');
 });
