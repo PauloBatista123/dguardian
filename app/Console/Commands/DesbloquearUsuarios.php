@@ -30,12 +30,12 @@ class DesbloquearUsuarios extends Command
     public function handle(UsuarioService $usuarioService)
     {
         if(now()->dayOfWeek === 1){
-            $data = now()->subDays(3)->format('Y-m-d');
+            $data = now()->subDays(3);
         }else{
-            $data = now()->subDay()->format('Y-m-d');
+            $data = now()->subDay();
         }
 
-        $usuariosVoltaHoje = Ausencia::where('fim', '=', $data)->get();
+        $usuariosVoltaHoje = Ausencia::where('fim', '>=', $data->startOfDay())->where('fim', '<=', $data->endOfDay())->get();
 
         $this->output->title("Iniciando processo!");
 

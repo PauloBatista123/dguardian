@@ -31,7 +31,7 @@ class BloquearUsuarios extends Command
     public function handle(UsuarioService $usuarioService)
     {
 
-        $ausenciasHoje = Ausencia::where('inicio', '=', now()->format('Y-m-d'))->get();
+        $ausenciasHoje = Ausencia::where('inicio', '>=', now()->startOfDay())->where('inicio', '<=', now()->endofDay())->get();
 
         $this->output->title("Iniciando processo!");
 
