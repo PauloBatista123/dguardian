@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Services;
 
+use Error;
 use Exception;
 use Illuminate\Support\Arr;
 use LdapRecord\Auth\BindException;
@@ -42,6 +43,8 @@ Class LdapService{
             return null;
         }
 
+        $this->validatePropertiesUser($result);
+
         $nameExplode = explode(' ', $result['name'][0]);
         $firtsName = Arr::first($nameExplode);
         $lastName = Arr::last($nameExplode);
@@ -67,6 +70,25 @@ Class LdapService{
             return $error;
         }
 
+    }
+
+    public function validatePropertiesUser($result)
+    {
+        if(!array_key_exists('mail', $result)){
+            throw new Error('O usuário não possui email cadastrado no LDAP (mail)');
+        }
+
+        if(!array_key_exists('physicaldeliveryofficename', $result)){
+            throw new Error('O usuário não possui CPF cadastrado no LDAP (physicaldeliveryofficename)');
+        }
+
+        if(!array_key_exists('name', $result)){
+            throw new Error('O usuário não possui Nome cadastrado no LDAP (name)');
+        }
+
+        if(!array_key_exists('description', $result)){
+            throw new Error('O usuário não possui Função cadastrado no LDAP (description)');
+        }
     }
 
     public function getUserObject(string $user)
